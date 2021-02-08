@@ -109,14 +109,14 @@ function handleMessage(senderPsid, receivedMessage) {
   let response;
 
   // Checks if the message contains text
-  if (receivedMessage.text == "hola") {
+  if (receivedMessage.text == "Hola") {
     // Create the payload for a basic text message, which
     // will be added to the body of your request to the Send API
     response = {
       'text': 'Has enviado la palabra hola'
     };
   } else if (receivedMessage.text == "adrian") {
-    reponse = {
+    response = {
       'text': `Has enviado el mensaje: '${receivedMessage.text}'. Ahora envíame un archivo!`
     };  
   } else if (receivedMessage.attachments) {
