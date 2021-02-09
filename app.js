@@ -126,15 +126,7 @@ function itsAnId(number){
 // Handles messages events
 function handleMessage(senderPsid, receivedMessage) {
   let response;
-    pool.query(`SELECT FROM buscando WHERE status_buscando = 1 AND psid = ${senderPsid}`, (err, result) => {
-      if (!err) {
-        if (typeof(result[0]) != 'undefined'){
-          response = {
-            'text': `Te encontré`
-          };  
-        }
-      } 
-    });
+ 
   // Checks if the message contains text
   if (receivedMessage.text == "Hola") {
     // Create the payload for a basic text message, which
