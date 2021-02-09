@@ -129,7 +129,8 @@ function handleMessage(senderPsid, receivedMessage) {
  
   // Checks if the message contains text
   if(receivedMessage.text) {
-    if(itsAnId(receivedMessage.text)) {
+    let validacion = receivedMessage.text
+    if(itsAnId(validacion)) {
       response = {
         'text': `Has enviado el status de tu pedido`
       };
