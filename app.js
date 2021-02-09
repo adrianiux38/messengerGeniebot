@@ -156,7 +156,7 @@ function handleMessage(senderPsid, receivedMessage) {
     response = {
       'text': `Has enviado el mensaje: '${receivedMessage.text}'. Ahora envíame un archivo!`
     };  
-  } else if (itsAnId(receivedMessage.text)) {
+  } else if (receivedMessage.text == 'perro') {
     response = {
       'text': `Te encontré`
     }; 
