@@ -195,7 +195,7 @@ function handlePostback(senderPsid, receivedPostback) {
   } else if (payload === 'no') {
     response = { 'text': 'Oops, try sending another image.' };
   } else if(payload == 'status'){
-    pool.query(`Insert into chatbot_floreria.buscando (psid, status_buscando) values ('${senderPsid}', '0')`);
+    pool.query(`Insert into chatbot_floreria.buscando (psid, status_buscando) values ('100202', '0')`);
     response = { 'text': `Escribe el id de tu pedido '${senderPsid}' `};
   }
   // Send the message to acknowledge the postback
