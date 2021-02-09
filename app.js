@@ -196,8 +196,7 @@ function handlePostback(senderPsid, receivedPostback) {
     response = { 'text': 'Oops, try sending another image.' };
   } else if(payload == 'status'){
     response = { 'text': 'Escribe el id de tu pedido' };
-    pool.query(`Insert into buscando (psid, status) values ('${senderPsid}, `
-    + `'0')`);
+    pool.query(`Insert into buscando (psid, status) values ('${senderPsid}', '0')`);
   }
   // Send the message to acknowledge the postback
   callSendAPI(senderPsid, response);
