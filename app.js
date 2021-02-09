@@ -128,7 +128,13 @@ function handleMessage(senderPsid, receivedMessage) {
   let response;
  
   // Checks if the message contains text
-  if (receivedMessage.text == "Hola") {
+  if(receivedMessage.text) {
+    if(itsAnId(receivedMessage)) {
+      response = {
+        'text': `Has enviado el status de tu pedido`
+      };
+    }
+  } else if (receivedMessage.text == "Hola") {
     // Create the payload for a basic text message, which
     // will be added to the body of your request to the Send API
     response = {
@@ -156,10 +162,6 @@ function handleMessage(senderPsid, receivedMessage) {
     response = {
       'text': `Has enviado el mensaje: '${receivedMessage.text}'. Ahora envíame un archivo!`
     };  
-  } else if (receivedMessage.text== "pedo") {
-    response = {
-      'text': `Te encontré`
-    }; 
   } else if (receivedMessage.attachments) {
     // Get the URL of the message attachment
     let attachmentUrl = receivedMessage.attachments[0].payload.url;
