@@ -119,15 +119,11 @@ function handleMessage(senderPsid, receivedMessage) {
   let response;
   
   if(receivedMessage.text){
-    pool.query(`SELECT FROM buscando WHERE status_buscando = 1 AND psid = ${senderPsid}`, (err, result) => {
-      if (!err) {
-        if (typeof(result[0]) != 'undefined'){
+
           response = {
             'text': `Enviaremos '${receivedMessage.text}' como el status de tu pedido`
           };  
-        }
-      } 
-    });
+       
   }
 
   // Checks if the message contains text
