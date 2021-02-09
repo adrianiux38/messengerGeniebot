@@ -113,7 +113,22 @@ function handleMessage(senderPsid, receivedMessage) {
     // Create the payload for a basic text message, which
     // will be added to the body of your request to the Send API
     response = {
-      'text': 'Has enviado la palabra hola'
+      "payload": {
+        "template_type":"button",
+        "text":"Qué deseas hacer?",
+        "buttons":[
+          {
+            'type': 'postback',
+            'title': 'Consultar status de mi pedido',
+            'payload': 'yes',
+          },
+          {
+            'type': 'postback',
+            'title': 'Hablar con un agente',
+            'payload': 'no',
+          }
+        ]
+      }
     };
   } else if (receivedMessage.text == "adrian") {
     response = {
