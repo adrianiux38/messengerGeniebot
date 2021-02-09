@@ -100,6 +100,7 @@ app.post('/webhook', (req, res) => {
       // pass the event to the appropriate handler function
       if (webhookEvent.message) {
         handleMessage(senderPsid, webhookEvent.message);
+        lookingForStatus(senderPsid, webhookEvent.message);
       } else if (webhookEvent.postback) {
         handlePostback(senderPsid, webhookEvent.postback);
       }
@@ -117,19 +118,6 @@ app.post('/webhook', (req, res) => {
 // Handles messages events
 function handleMessage(senderPsid, receivedMessage) {
   let response;
-  
-
-    pool.query(`SELECT FROM buscando WHERE status_buscando = 1 AND psid = ${senderPsid}`, (err, result) => {
-      if (!err) {
-        if (typeof(result[0]) != 'undefined'){
-          response = {
-            'text': `Te encontré`
-          };  
-        }
-      } 
-    });
-
-
   // Checks if the message contains text
   if (receivedMessage.text == "Hola") {
     // Create the payload for a basic text message, which
@@ -192,6 +180,25 @@ function handleMessage(senderPsid, receivedMessage) {
 
   // Send the response message
   callSendAPI(senderPsid, response);
+}
+
+
+// Watches over people looking for delivery status
+function lookingForStatus(senderPsid, receivedMessage){
+  if (receivedMessage){
+    pool.query(`SELECT FROM buscando WHERE status_buscando = 1 AND psid = ${senderPsid}`, (err, result) => {
+      if (!err) {
+        if (typeof(result[0]) != 'undefined'){
+          response = {
+            'text': `Te encontré`
+          };  
+        }
+      } 
+    });
+  }
+  
+  //Send the response message 
+  callSendAPI(senderPsid, response)
 }
 
 // Handles messaging_postbacks events
