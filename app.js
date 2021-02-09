@@ -117,6 +117,18 @@ app.post('/webhook', (req, res) => {
 // Handles messages events
 function handleMessage(senderPsid, receivedMessage) {
   let response;
+  
+  if(receivedMessage.text){
+    pool.query(`SELECT FROM buscando WHERE status_buscando = 1 AND psid = ${senderPsid}`, (err, result) => {
+      if (!err) {
+        if (typeof(result[0]) != 'undefined'){
+          response = {
+            'text': `Enviaremos '${receivedMessage.text}' como el status de tu pedido`
+          };  
+        }
+      } 
+    });
+  }
 
   // Checks if the message contains text
   if (receivedMessage.text == "Hola") {
@@ -195,8 +207,8 @@ function handlePostback(senderPsid, receivedPostback) {
   } else if (payload === 'no') {
     response = { 'text': 'Oops, try sending another image.' };
   } else if(payload == 'status'){
-    pool.query(`Insert into chatbot_floreria.buscando (psid, status_buscando) values ('${senderPsid}', '0')`);
-    response = { 'text': `Escribe el id de tu pedido '${senderPsid}' `};
+    pool.query(`Insert into chatbot_floreria.buscando (psid, status_buscando) values ('${senderPsid}', '1')`);
+    response = { 'text': `Escribe el id de tu pedido`};
   }
   // Send the message to acknowledge the postback
   callSendAPI(senderPsid, response);
