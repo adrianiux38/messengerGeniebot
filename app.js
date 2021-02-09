@@ -19,6 +19,16 @@
 
 'use strict';
 
+const mysql = require('mysql');
+
+var pool = mysql.createPool({
+    host: '74.208.30.224',
+    user: 'techsoft',
+    password: 'Techsoft2020.',
+    database: 'chatbot_floreria',
+    port: '3306'
+});
+
 // Use dotenv to read .env vars into Node
 require('dotenv').config();
 
@@ -121,13 +131,13 @@ function handleMessage(senderPsid, receivedMessage) {
           "buttons":[
             {
               'type': 'postback',
-              'title': 'Consultar status de mi pedido',
-              'payload': 'yes',
+              'title': 'Status de mi pedido',
+              'payload': 'status',
             },
             {
               'type': 'postback',
               'title': 'Hablar con un agente',
-              'payload': 'no',
+              'payload': 'agente',
             }
           ]
         }
@@ -184,6 +194,10 @@ function handlePostback(senderPsid, receivedPostback) {
     response = { 'text': 'Thanks!' };
   } else if (payload === 'no') {
     response = { 'text': 'Oops, try sending another image.' };
+  } else if(payload == 'status'){
+    response = { 'text': 'Escribe el id de tu pedido' };
+    pool.query(`Insert into buscando (psid, status) values ('${senderPsid}, `
+    + `'0')`);
   }
   // Send the message to acknowledge the postback
   callSendAPI(senderPsid, response);
