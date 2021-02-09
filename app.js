@@ -156,13 +156,6 @@ function handleMessage(senderPsid, receivedMessage) {
     response = {
       'text': `Has enviado el mensaje: '${receivedMessage.text}'. Ahora envíame un archivo!`
     };  
-  } else if (receivedMessage.text) {
-    let variable = receivedMessage.text
-    if (itsAnId(variable)){
-      response = {
-        'text': `Te encontré`
-      }; 
-    }
   } else if (receivedMessage.attachments) {
     // Get the URL of the message attachment
     let attachmentUrl = receivedMessage.attachments[0].payload.url;
