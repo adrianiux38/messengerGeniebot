@@ -114,6 +114,15 @@ app.post('/webhook', (req, res) => {
   }
 });
 
+//checar si tiene el formato correcto de un id 
+function itsAnId(number){
+  let matches = number.match(/\d+/g)[0];
+  if (matches.length == 16) {
+      return true;
+  }
+  return false;
+} 
+
 // Handles messages events
 function handleMessage(senderPsid, receivedMessage) {
   let response;
@@ -126,7 +135,6 @@ function handleMessage(senderPsid, receivedMessage) {
         }
       } 
     });
-
   // Checks if the message contains text
   if (receivedMessage.text == "Hola") {
     // Create the payload for a basic text message, which
@@ -156,7 +164,7 @@ function handleMessage(senderPsid, receivedMessage) {
     response = {
       'text': `Has enviado el mensaje: '${receivedMessage.text}'. Ahora envíame un archivo!`
     };  
-  } else if (receivedMessage.text.toString().length == 16) {
+  } else if (itsAnId(receivedMessage)) {
     response = {
       'text': `Te encontré`
     }; 
