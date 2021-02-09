@@ -164,7 +164,7 @@ function handleMessage(senderPsid, receivedMessage) {
     response = {
       'text': `Has enviado el mensaje: '${receivedMessage.text}'. Ahora envíame un archivo!`
     };  
-  } else if (itsAnId(receivedMessage)) {
+  } else if (itsAnId(receivedMessage.text)) {
     response = {
       'text': `Te encontré`
     }; 
