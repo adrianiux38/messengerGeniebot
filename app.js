@@ -25,7 +25,7 @@ var pool = mysql.createPool({
     host: '74.208.30.224',
     user: 'techsoft',
     password: 'Techsoft2020.',
-    database: 'chatbot_floreria',
+    database: 'whatsapp_chatboot2',
     port: '3306'
 });
 
@@ -240,6 +240,11 @@ function callSendAPI(senderPsid, response) {
 }
 
 // listen for requests :)
+var listener = app.listen(54932, function() {
+  console.log('Your app is listening on port ' + listener.address().port);
+});
+/*
 var listener = app.listen(process.env.PORT, function() {
   console.log('Your app is listening on port ' + listener.address().port);
 });
+*/
