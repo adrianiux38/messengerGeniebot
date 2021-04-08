@@ -463,7 +463,24 @@
         };
         cambiarIntent(`${senderPsid}`, '1.8');
       } else if (mensaje == 'si' || mensaje == 'sí') {
-        cambiarIntent(`${sender}`, '1.9');
+        try {
+          edad = await leerEdad(`${senderPsid}`);
+          console.log('leyendo edad');
+          pertenece_medico = await perteneceASalud(`${senderPsid}`);
+          /* leemos la edad y vemos a qué corresponde */
+          if(pertenece_medico == 'si' || pertenece_medico == 'sí'){
+            resultado= "La vacuna te tocará aproximadamente el *10 de Abril del 2021*";
+          } else {
+            //calculamos en base a la edad
+            resultado = await calcularEdad(edad);
+          }
+          response = {
+            'text': `${resultado}`
+          };
+          cambiarIntent(`${senderPsid}`, '1');
+       } catch(error) {
+          console.log(error);
+       }
       }
     } else if (resultado == 'false'){
       response = {
